@@ -77,6 +77,9 @@ const (
 	RegexCiscoConfIntPowerInlineConsumption = `^\s*power inline consumption (\d+)\s*$`
 	RegexCiscoConfIntTypeEthernet           = `^\s*interface .+Ethernet\d+`
 	RegexCiscoConfIntTypeVlan               = `^\s*interface Vlan\d+`
+	RegexCiscoConfIntTypeEthernetFast       = `^\s*interface FastEthernet\d+`
+	RegexCiscoConfIntTypeEthernetGigabit    = `^\s*interface GigabitEthernet\d+`
+	RegexCiscoConfIntTypeEthernetTenGigabit = `^\s*interface TenGigabitEthernet\d+`
 )
 
 var (
@@ -102,6 +105,9 @@ var (
 	reCiscoConfIntPowerInlineConsumption = regexp.MustCompile(RegexCiscoConfIntPowerInlineConsumption)
 	reCiscoConfIntTypeEthernet           = regexp.MustCompile(RegexCiscoConfIntTypeEthernet)
 	reCiscoConfIntTypeVlan               = regexp.MustCompile(RegexCiscoConfIntTypeVlan)
+	reCiscoConfIntTypeEthernetFast       = regexp.MustCompile(RegexCiscoConfIntTypeEthernetFast)
+	reCiscoConfIntTypeEthernetGigabit    = regexp.MustCompile(RegexCiscoConfIntTypeEthernetGigabit)
+	reCiscoConfIntTypeEthernetTenGigabit = regexp.MustCompile(RegexCiscoConfIntTypeEthernetTenGigabit)
 )
 
 var (
@@ -340,6 +346,31 @@ func (c CiscoConfInt) IsIpInt() bool {
 	return IsCiscoConfIntIpV4Int(string(c))
 }
 
+// IsEthernetInt - To Be Documented
+func (c CiscoConfInt) IsEthernet() bool {
+	return IsCiscoConfIntEthernet(string(c))
+}
+
+// IsEthernetInt - To Be Documented
+func (c CiscoConfInt) IsEthernetFast() bool {
+	return IsCiscoConfIntEthernetFast(string(c))
+}
+
+// IsEthernetInt - To Be Documented
+func (c CiscoConfInt) IsEthernetGigabit() bool {
+	return IsCiscoConfIntEthernetGigabit(string(c))
+}
+
+// IsEthernetInt - To Be Documented
+func (c CiscoConfInt) IsEthernetTenGigabit() bool {
+	return IsCiscoConfIntEthernetTenGigabit(string(c))
+}
+
+// IsVlanInt - To Be Documented
+func (c CiscoConfInt) IsVlan() bool {
+	return IsCiscoConfIntVlan(string(c))
+}
+
 // Below are the functions which support the methods above.
 //
 // If you simply want to call a function against a string, without all of the parser type elements, then these can be used.
@@ -436,6 +467,26 @@ func IsCiscoConfIntIpV4Int(s string) bool {
 	return regexMatchString(reCiscoConfIntIpV4AddressAndMask, s)
 }
 
+func IsCiscoConfIntEthernet(s string) bool {
+	return reCiscoConfIntTypeEthernet.MatchString(s)
+}
+
+func IsCiscoConfIntEthernetFast(s string) bool {
+	return reCiscoConfIntTypeEthernetFast.MatchString(s)
+}
+
+func IsCiscoConfIntEthernetGigabit(s string) bool {
+	return reCiscoConfIntTypeEthernetGigabit.MatchString(s)
+}
+
+func IsCiscoConfIntEthernetTenGigabit(s string) bool {
+	return reCiscoConfIntTypeEthernetTenGigabit.MatchString(s)
+}
+
+func IsCiscoConfIntVlan(s string) bool {
+	return reCiscoConfIntTypeVlan.MatchString(s)
+}
+
 func GetInterfaceBlocks(s string) []string {
 	b, err := splitStringBlocksByRegex(s, reCiscoConfInterface)
 	if err != nil {
@@ -479,6 +530,46 @@ func GetVlanBlocks(s string) []string {
 	}
 	return b
 }
+
+//
+//
+//
+
+// GetBlocksByPrefixString can be used to extract any block from the configuration by using a Prefix string as a delimiter.
+//
+// It also works just as well on single lines which have a defined prefix, such as "aaa" or "snmp-server".
+//
+// TODO: Needs Test
+func GetBlocksByPrefixString(s, p string) []string {
+	b, err := splitStringBlocksByPrefix(s, p)
+	if err != nil {
+		return nil
+	}
+	return b
+}
+
+// GetBlocksByRegexString can be used to extract any block from the configuration by using a Prefix regex string as a delimiter.
+// The regex should be passed as a string, so that the calling module does not need to import the regexp package.
+// If the regex string fails to compile, a nil slice will be returned.
+//
+// It also works just as well on single lines which have a defined prefix, such as "aaa" or "snmp-server".
+//
+// TODO: Needs Test
+func GetBlocksByRegexString(s, r string) []string {
+	re, err := regexp.Compile(r)
+	if err != nil {
+		return nil
+	}
+	b, err := splitStringBlocksByRegex(s, re)
+	if err != nil {
+		return nil
+	}
+	return b
+}
+
+//
+// Unexported Utility Functions
+//
 
 // The functions below are unexported utility functions for the Cisco parser.
 //

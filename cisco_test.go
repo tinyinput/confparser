@@ -290,6 +290,26 @@ func TestCiscoConfIntIsShutdownTrue(t *testing.T) {
 }
 
 // TBD
+func TestCiscoConfIntIsSwAccessTrue(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	//
+	result := client.ConfigIntParser(testCiscoIntAccessNoPoe).IsSwAccess()
+	if !result {
+		t.Fatalf("Error with method CiscoConfInt.IsSwAccess(). Switchport Access status evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntAccessNoPoeResultIsSwAccess, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsSwTrunkTrue(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	//
+	result := client.ConfigIntParser(testCiscoIntTrunkShutdown).IsSwTrunk()
+	if !result {
+		t.Fatalf("Error with method CiscoConfInt.IsSwTrunk. Switchport Trunk status evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntTrunkShutdownResultIsSwTrunk, result)
+	}
+}
+
+// TBD
 func TestCiscoConfIntIsPoeDisabledTrue(t *testing.T) {
 	client, _ := NewClient(PARSER_CISCO)
 	confIntParser := client.NewConfigIntParser()
@@ -298,5 +318,125 @@ func TestCiscoConfIntIsPoeDisabledTrue(t *testing.T) {
 	result := client.ConfigIntParser(testCiscoIntAccessNoPoe).IsPoeDisabled()
 	if !result {
 		t.Fatalf("Error with method CiscoConfInt.IsPoeDisabled(). PoE status evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntAccessNoPoeResultIsPoeDisabled, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsEthernetTrue(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntAccessNoPoe)
+	//
+	result := client.ConfigIntParser(testCiscoIntAccessNoPoe).IsEthernet()
+	if !result {
+		t.Fatalf("Error with method CiscoConfInt.IsEthernet(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntAccessNoPoeResultIsEthernet, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsEthernetFalse(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntVlan)
+	//
+	result := client.ConfigIntParser(testCiscoIntVlan).IsEthernet()
+	if result {
+		t.Fatalf("Error with method CiscoConfInt.IsEthernet(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntVlanResultIsEthernet, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsEthernetFastTrue(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntEthernetFast)
+	//
+	result := client.ConfigIntParser(testCiscoIntEthernetFast).IsEthernetFast()
+	if !result {
+		t.Fatalf("Error with method CiscoConfInt.IsEthernetFast(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntEthernetFastResultIsEthernetFast, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsEthernetFastFalse(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntAccessNoPoe)
+	//
+	result := client.ConfigIntParser(testCiscoIntAccessNoPoe).IsEthernetFast()
+	if result {
+		t.Fatalf("Error with method CiscoConfInt.IsEthernetFast(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntAccessNoPoeResultIsEthernetFast, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsEthernetGigabitTrue(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntEthernetGigabit)
+	//
+	result := client.ConfigIntParser(testCiscoIntEthernetGigabit).IsEthernetGigabit()
+	if !result {
+		t.Fatalf("Error with method CiscoConfInt.IsEthernetGigabit(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntEthernetGigabitResultIsEthernetFast, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsEthernetGigabitFalse(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntEthernetFast)
+	//
+	result := client.ConfigIntParser(testCiscoIntEthernetFast).IsEthernetGigabit()
+	if result {
+		t.Fatalf("Error with method CiscoConfInt.IsEthernetGigabit(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntEthernetFastResultIsEthernetFast, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsEthernetTenGigabitTrue(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntEthernetTenGigabit)
+	//
+	result := client.ConfigIntParser(testCiscoIntEthernetTenGigabit).IsEthernetTenGigabit()
+	if !result {
+		t.Fatalf("Error with method CiscoConfInt.IsEthernetTenGigabit(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntEthernetTenGigabitResultIsEthernetFast, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsEthernetTenGigabitFalse(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntEthernetFast)
+	//
+	result := client.ConfigIntParser(testCiscoIntEthernetFast).IsEthernetTenGigabit()
+	if result {
+		t.Fatalf("Error with method CiscoConfInt.IsEthernetTenGigabit(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntEthernetFastResultIsEthernetFast, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsVlanTrue(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntVlan)
+	//
+	result := client.ConfigIntParser(testCiscoIntVlan).IsVlan()
+	if !result {
+		t.Fatalf("Error with method CiscoConfInt.IsVlan(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntVlanResultIsVlan, result)
+	}
+}
+
+// TBD
+func TestCiscoConfIntIsVlanFalse(t *testing.T) {
+	client, _ := NewClient(PARSER_CISCO)
+	confIntParser := client.NewConfigIntParser()
+	confIntParser.Set(testCiscoIntEthernetTenGigabit)
+	//
+	result := client.ConfigIntParser(testCiscoIntEthernetTenGigabit).IsVlan()
+	if result {
+		t.Fatalf("Error with method CiscoConfInt.IsVlan(). Interface type evaluated incorrectly. Expecting (%v). Got (%v)\n", testCiscoIntEthernetTenGigabitResultIsVlan, result)
 	}
 }

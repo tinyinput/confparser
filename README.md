@@ -219,6 +219,78 @@ func main() {
 }
 ```
 
+## The Configuration Parser Interface
+
+The following _Methods_ are defined for the `ConfParser` interface type. It is the type which can be ued to extract various elments from the main configuration.
+
+* **Set(s string)**
+	* This can be used to pass the configuration to the _Parser_
+* **String()**
+	* The outputs the configuration set on the _Parser_
+* **Hostname()**
+	* The _Hostname_ defined in the configuration
+* **InterfaceBlocks()**
+	* The _Interface Blocks_ from the configuration
+* **InterfaceBlocksEthernet()**
+	* Only the _Ethernet Interface Blocks_ from the configuration
+* **InterfaceBlocksVlan()**
+	* Only the _Vlan Interface Blocks_ from the configuration
+* **VlanBlocks()**
+	* The _Vlan Blocks_ from the configuration
+
+
+## The Interface Configuration Parser Interface
+
+(Yes... It's a confusing heading...)
+
+The following _Methods_ are defined for the `ConfIntParser` interface type. It is the type which can be used to extract various information and logical state from individual _blocks_ of interface configuration.
+
+* **Set(s string)**
+	* This can be used to pass the interface configuration to the _Parser_
+* **String()**
+	* The outputs the interface configuration set on the _Parser_
+* **InterfaceNameFull()**
+	* The _Full_ interface name
+* **InterfaceNameShort()**
+	* The _Shortened_ interface name
+* **Description()**
+	* The interface _Description_
+* **VlanAccess()**
+	* The configured _Access Vlan_ number on the interface
+* **VlanVoice()**
+	* The configured _Voice Vlan_ number on the interface
+* **VlanTrunkNative()**
+	* The configured _Trunk Native Vlan_ number on the interface
+* **VlansTrunkAllowed()**
+	* The configured _Allowed Vlan_ numbers on the _Trunk_ for the interface
+* **IpAddressAndMask()**
+	* The _IP Address_ and _Subnet Mask_ configured on the interface
+* **IpAddress()**
+	* The _IP Address_ configured on the interface
+* **IpMask()**
+	* The _Subnet Mask_ configured on the interface
+* **IsShutdown()**
+	* Is the interface configured to be _Shutdown_?
+* **IsSwAccess()**
+	* Is the interface configured to be an _Access_ switch port? 
+* **IsSwTrunk()**
+	* Is the interface configured to be a _Trunk_ switch port?
+* **IsPoeDisabled()**
+	* Is _Power over Ethernet_ disabled on the interface?
+	* Note: A _false_ result doesn't guarantee that _PoE_ is _Enabled_. You can only use this check to see is configuration exists to manually _Disabled_ _PoE_.
+* **IsEthernet()**
+	* Is the interface an _Ethernet_ interface?
+* **IsEthernetFast()**
+	* Is the interface a _Fast Ethernet_ interface?
+* **IsEthernetGigabit()**
+	* Is the interface a _Gigabit Ethernet_ interface?
+* **IsEthernetTenGigabit()**
+	* Is the interface a _Ten Gigabit Ethernet_ interface?
+* **IsVlan()**
+	* Is the interface a _Vlan_ interface?
+
+For more details about return types and caveats, see the comments for the specific parser _Methods_ in the code.
+
 
 ## General Notes on Errors
 

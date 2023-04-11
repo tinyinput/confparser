@@ -129,7 +129,14 @@ type ConfIntParser interface {
 	IpAddress() string
 	IpMask() string
 	IsShutdown() bool
+	IsSwAccess() bool
+	IsSwTrunk() bool
 	IsPoeDisabled() bool
+	IsEthernet() bool
+	IsEthernetFast() bool
+	IsEthernetGigabit() bool
+	IsEthernetTenGigabit() bool
+	IsVlan() bool
 }
 
 // TBD

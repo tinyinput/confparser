@@ -13,15 +13,22 @@ const (
  switchport access vlan 101
  switchport mode access
  power inline never`
-	testCiscoIntAccessNoPoeResultInterfaceNameFull  = `GigabitEthernet1/0/1`
-	testCiscoIntAccessNoPoeResultInterfaceNameShort = `Gi1/0/1`
-	testCiscoIntAccessNoPoeResultDescription        = `STANDARD ACCESS INTERFACE`
-	testCiscoIntAccessNoPoeResultAccessVlan         = `101`
-	testCiscoIntAccessNoPoeResultVoiceVlan          = ``
-	testCiscoIntAccessNoPoeResultTrunkNativeVlan    = ``
-	testCiscoIntAccessNoPoeResultTrunkAllowedVlans  = ``
-	testCiscoIntAccessNoPoeResultIsShutdown         = false
-	testCiscoIntAccessNoPoeResultIsPoeDisabled      = true
+	testCiscoIntAccessNoPoeResultInterfaceNameFull    = `GigabitEthernet1/0/1`
+	testCiscoIntAccessNoPoeResultInterfaceNameShort   = `Gi1/0/1`
+	testCiscoIntAccessNoPoeResultDescription          = `STANDARD ACCESS INTERFACE`
+	testCiscoIntAccessNoPoeResultAccessVlan           = `101`
+	testCiscoIntAccessNoPoeResultVoiceVlan            = ``
+	testCiscoIntAccessNoPoeResultTrunkNativeVlan      = ``
+	testCiscoIntAccessNoPoeResultTrunkAllowedVlans    = ``
+	testCiscoIntAccessNoPoeResultIsShutdown           = false
+    testCiscoIntAccessNoPoeResultIsSwAccess           = true
+    testCiscoIntAccessNoPoeResultIsSwTrunk            = false
+	testCiscoIntAccessNoPoeResultIsPoeDisabled        = true
+    testCiscoIntAccessNoPoeResultIsEthernet           = true
+    testCiscoIntAccessNoPoeResultIsEthernetFast       = false
+    testCiscoIntAccessNoPoeResultIsEthernetGigabit    = true
+    testCiscoIntAccessNoPoeResultIsEthernetTenGigabit = false
+    testCiscoIntAccessNoPoeResultIsVlan               = false
 )
 
 const (
@@ -61,7 +68,63 @@ const (
 	testCiscoIntTrunkShutdownResultTrunkNativeVlan    = `1101`
 	testCiscoIntTrunkShutdownResultTrunkAllowedVlans  = `1101,1109,1117,1121,1122`
 	testCiscoIntTrunkShutdownResultIsShutdown         = true
+    testCiscoIntTrunkShutdownResultIsSwAccess         = false
+    testCiscoIntTrunkShutdownResultIsSwTrunk          = true
 	testCiscoIntTrunkShutdownResultIsPoeDisabled      = false
+)
+
+const (
+    testCiscoIntVlan = `interface Vlan1
+ no ip address
+ shutdown`
+    testCiscoIntVlanResultIsShutdown           = true
+    testCiscoIntVlanResultIsEthernet           = false
+    testCiscoIntVlanResultIsEthernetFast       = false
+    testCiscoIntVlanResultIsEthernetGigabit    = false
+    testCiscoIntVlanResultIsEthernetTenGigabit = false
+    testCiscoIntVlanResultIsVlan               = true
+)
+
+const (
+    testCiscoIntEthernetFast = `interface FastEthernet0
+ no ip address
+ shutdown`
+    testCiscoIntEthernetFastResultIsShutdown           = true
+    testCiscoIntEthernetFastResultIsEthernet           = true
+    testCiscoIntEthernetFastResultIsEthernetFast       = true
+    testCiscoIntEthernetFastResultIsEthernetGigabit    = false
+    testCiscoIntEthernetFastResultIsEthernetTenGigabit = false
+    testCiscoIntEthernetFastResultIsVlan               = false
+)
+
+const (
+    testCiscoIntEthernetGigabit = `interface GigabitEthernet1/0/17
+ description [A-017:OF.1.001]
+ shutdown`
+    testCiscoIntEthernetGigabitResultIsShutdown           = true
+    testCiscoIntEthernetGigabitResultIsEthernet           = true
+    testCiscoIntEthernetGigabitResultIsEthernetFast       = false
+    testCiscoIntEthernetGigabitResultIsEthernetGigabit    = true
+    testCiscoIntEthernetGigabitResultIsEthernetTenGigabit = false
+    testCiscoIntEthernetGigabitResultIsVlan               = false
+)
+
+const (
+    testCiscoIntEthernetTenGigabit = `interface TenGigabitEthernet1/0/1
+ description [DP:OF.2.999]-CORE-SW01
+ switchport trunk native vlan 10
+ switchport mode trunk
+ srr-queue bandwidth share 1 30 35 5
+ priority-queue out 
+ mls qos trust cos
+ auto qos trust 
+ ip dhcp snooping trust`
+    testCiscoIntEthernetTenGigabitResultIsShutdown           = true
+    testCiscoIntEthernetTenGigabitResultIsEthernet           = true
+    testCiscoIntEthernetTenGigabitResultIsEthernetFast       = false
+    testCiscoIntEthernetTenGigabitResultIsEthernetGigabit    = false
+    testCiscoIntEthernetTenGigabitResultIsEthernetTenGigabit = true
+    testCiscoIntEthernetTenGigabitResultIsVlan               = false
 )
 
 const (
